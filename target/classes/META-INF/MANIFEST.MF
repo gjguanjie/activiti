@@ -1,9 +1,9 @@
 Manifest-Version: 1.0
 Implementation-Title: demo-activiti
 Implementation-Version: 0.0.1-SNAPSHOT
-Built-By: JieGuan
+Built-By: ice
 Implementation-Vendor-Id: com.cloud
-Build-Jdk: 1.8.0_211
+Build-Jdk: 1.8.0_111
 Implementation-URL: https://projects.spring.io/spring-boot/#/spring-bo
  ot-starter-parent/demo-activiti
 Created-By: Maven Integration for Eclipse
