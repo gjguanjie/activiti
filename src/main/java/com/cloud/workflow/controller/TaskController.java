@@ -16,6 +16,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cloud.workflow.common.ProcessInstanceType;
+import com.cloud.workflow.common.WorkflowStatusType;
+
 
 @RestController
 @RequestMapping("/task")
@@ -39,19 +42,27 @@ public class TaskController {
         String busniessKey = "leave";
         Map<String, Object> startParam = new HashMap<>();
         startParam.put("orderNo", "orderNo000001");
-        startParam.put("status", "INIT");
-        ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("myProcess", busniessKey, startParam);
+        startParam.put("status", WorkflowStatusType.INIT.getValue());
+        ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(ProcessInstanceType.LEAVE.getValue(), busniessKey, startParam);
         LOGGER.error("流程ID：" + processInstance.getId());
         return processInstance.getId();
         
 	}
 	
-	@GetMapping("/queryTask")
+	@GetMapping("/queryTaskByProcessId")
 	public String queryTask(String processId) {
 		LOGGER.error("查询任务并执行开始");
 		Task task = taskService.createTaskQuery().processInstanceId(processId).processInstanceBusinessKey("leave").singleResult();
     	LOGGER.error("任务数：" + task);
-    	//taskService.complete(task.getId());
+    	LOGGER.error("查询任务并执行结束");
+    	return task.getId();
+	}
+	
+	@GetMapping("/queryTaskByName")
+	public String queryTask(String processId,String name) {
+		LOGGER.error("查询任务并执行开始");
+		Task task = taskService.createTaskQuery().processInstanceId(processId).taskName(name).singleResult();
+    	LOGGER.error("任务数：" + task);
     	LOGGER.error("查询任务并执行结束");
     	return task.getId();
 	}
@@ -59,7 +70,8 @@ public class TaskController {
 	@GetMapping("/queryAssigneedTask")
 	public String queryAssigneedTask(String userId) {
 		LOGGER.error("查询初分派的任务执行开始");
-		Task task = taskService.createTaskQuery().taskAssignee("zhangsan").singleResult();    	LOGGER.error("任务数：" + task);
+		Task task = taskService.createTaskQuery().taskAssignee(userId).singleResult();
+		LOGGER.error("任务数：" + task);
     	LOGGER.error("查询初分派的任务执行结束");
     	return task.getId();
 	}

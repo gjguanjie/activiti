@@ -1,12 +1,13 @@
 package com.cloud.workflow.listener;
 
+import java.util.Map;
+
 import org.activiti.engine.delegate.DelegateTask;
 import org.activiti.engine.delegate.TaskListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.HashMap;
-import java.util.Map;
+import com.cloud.workflow.common.WorkflowStatusType;
 
 /**
  * @creator ice
@@ -15,14 +16,15 @@ import java.util.Map;
  */
 public class UserTaskListener implements TaskListener {
 	
-    private static final Logger LOGGER = LoggerFactory.getLogger(UserTaskListener.class);
+	private static final long serialVersionUID = -7001321347045239043L;
+	private static final Logger LOGGER = LoggerFactory.getLogger(UserTaskListener.class);
 
     @Override
     public void notify(DelegateTask delegateTask) {
-    	LOGGER.error("用户手动执行开始");
+    	LOGGER.error("初审监听开始");
         Map<String,Object> params = delegateTask.getVariables();
-        params.put("status","FIRST");
+        params.put("status",WorkflowStatusType.FIRST.getValue());
         delegateTask.setVariables(params);
-        LOGGER.error("用户手动执行结束");
+        LOGGER.error("初审监听结束");
     }
 }

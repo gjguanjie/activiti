@@ -9,7 +9,8 @@ import org.slf4j.LoggerFactory;
 
 public class EndListener implements ExecutionListener {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(StartListener.class);
+	private static final long serialVersionUID = -1877680098326489214L;
+	private static final Logger LOGGER = LoggerFactory.getLogger(StartListener.class);
     @Override
     public void notify(DelegateExecution delegateExecution) {
     	LOGGER.error("流程结束监听开始");

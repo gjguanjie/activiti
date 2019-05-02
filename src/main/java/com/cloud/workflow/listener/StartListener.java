@@ -1,20 +1,23 @@
 package com.cloud.workflow.listener;
 
+import java.util.Map;
+
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.ExecutionListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.Map;
+import org.springframework.stereotype.Component;
 
 /**
  * @creator ice
  * @createTime 2019/4/30
  * @description
  */
+@Component("startListener")
 public class StartListener implements ExecutionListener {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(StartListener.class);
+	private static final long serialVersionUID = 6604025120186636298L;
+	private static final Logger LOGGER = LoggerFactory.getLogger(StartListener.class);
     @Override
     public void notify(DelegateExecution delegateExecution) {
     	LOGGER.error("流程启动监听开始");
